@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'notosanscjkkr_bold';
+            src: url(font/notoxanscjkkr_bold.otf) format('truetype');
+        }
+
+        span {
+            font-family: notosanscjkkr_bold;
+        }
+    </style>
+</head>
+
+<body style="background-color: #a890fe;  ">
+    <div
+        style=" margin: auto; margin-top: 20%; background-color: #ea8d8d; width:90%;height:80px; border-radius: 1.5em; display: flex;">
+        <span id="sname1" name='name' contenteditable="false"
+            style=" margin: auto; color: #ffffff; font-size: 30px;">굿네이버스</span>
+        <span id="sname1" contenteditable="false" style="margin: auto;color: #4a4a4a;font-size: 30px;">271개</span>
+    </div>
+
+    <div
+        style="margin: auto; margin-top: 10%; background-color: #ea8d8d; width:90%;height:80px; border-radius: 1.5em; display: flex; ">
+        <span id="sname2" name='name' contenteditable="false"
+            style="margin: auto; color: #ffffff; font-size: 30px;">월드비전</span>
+        <span id="snum2" contenteditable="false" style="margin: auto;color: #4a4a4a;font-size: 30px;">201개</span>
+    </div>
+
+    <div
+        style="margin: auto; margin-top: 10%; background-color: #ea8d8d; width:90%;height:80px; border-radius: 1.5em; display: flex; ">
+        <span id="sname3" name='name' contenteditable="false"
+            style="margin: auto; color: #ffffff; font-size: 30px;">초록우산</span>
+        <span id="snum3" contenteditable="false" style="margin: auto;color: #4a4a4a;font-size: 30px;">191개</span>
+    </div>
+
+    <div
+        style="margin: auto; margin-top: 10%; background-color: #ea8d8d; width:90%;height:80px; border-radius: 1.5em; display: flex; ">
+        <span id="sname4" name='name' contenteditable="false"
+            style="margin: auto; color: #ffffff; font-size: 30px;">금정구청</span>
+        <span id="snum4" contenteditable="false" style="margin: auto;color: #4a4a4a;font-size: 30px;">188개</span>
+    </div>
+    <div display=inline style="margin-top: 20%; margin-left: 10px; padding: 2%; float: right; text-align: center; box-shadow: 2px 2px gray; background-color: #85abff; border-radius: 1.2em;">
+        <span id="but" style="margin: auto; font-size: 20px;">
+            수정
+        </span>
+    </div>
+    <div display=inline id="finBack" style="visibility: hidden; margin-top: 20%;  padding: 2%; float: right; text-align: center; box-shadow: 2px 2px gray; background-color: #85abff; border-radius: 1.2em;">
+        <span id="fin" style="margin: auto; font-size: 20px;">
+            완료
+        </span>
+    </div>
+
+    <script>
+        $(function () {
+            var editables = document.querySelectorAll('[contenteditable]');
+            if(localStorage.length>2){
+                for(var i=0; i<localStorage.length; i++){
+                    //console.log(localStorage.getItem(i));
+                    editables[i].innerHTML=localStorage.getItem(i);
+                }
+            }
+            myStorage = window.localStorage;
+            document.getElementById('but').addEventListener("click", function (event) {
+                var returnVal = prompt("비밀번호를 입력하시오");
+                alert("확인되었습니다");
+                if(returnVal==='1234'){
+                    finBack.style.visibility="visible";
+                    fin.style.visibility="visible";
+                    for(var i=0; i<8; i++){
+                    editables[i].contentEditable='true';
+                    editables[i].focus(function () {
+                    $(this).css("border", "1px solid");
+                });
+                editables[i].blur(function () {
+                    $(this).css("border", "initial");
+                });
+                }
+                }
+                else{
+                    alert('비밀번호 다시 입력');
+                }
+                document.getElementById('fin').addEventListener("click",function(event){
+                    for(var i=0;i<8; i++){
+                        localStorage.setItem(i,editables[i].innerHTML);
+                        //console.log(localStorage.getItem(i));
+                        finBack.style.visibility="hidden";
+                        fin.style.visibility="hidden";
+                        editables[i].contentEditable='false';
+                    }
+
+                });
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
